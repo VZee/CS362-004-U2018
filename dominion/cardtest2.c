@@ -5,10 +5,9 @@ The requirements for the adventurer card are:
 1.	Current player reveals cards until they find two treasure cards. 
 2.	The two treasure cards are placed in the player’s hand.
 3.	The cards should come from the player’s own pile.
-4.	If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.
-5.	No state change should occur for other players.
-6.	The other revealed cards are discarded.
-7.	No state change should occur to the victory card piles and kingdom card piles. 
+4.	No state change should occur for other players.
+5.	The other revealed cards are discarded.
+6.	No state change should occur to the victory card piles and kingdom card piles. 
 */
 
 #include "dominion.h"
@@ -36,53 +35,104 @@ int main()
     int seed = 1000;
     int numPlayers = 2;
     int thisPlayer = 0;
+    int otherPlayer = 1;
     struct gameState G, testG;
-    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
-                 sea_hag, tribute, smithy, council_room};
+    int k[10] = {adventurer, embargo, village, minion, cutpurse,
+                 sea_hag, tribute, smithy, council_room, great_hall};
 
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
     printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
+    // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus
+    // use_adventurer(drawntreasure, state, currentPlayer, cardDrawn, temphand, z);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // The requirements for the adventurer card are:
     //1.	Current player reveals cards until they find two treasure cards.
     printf("TEST 1: Current player reveals cards until they find two treasure cards.\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //2.	The two treasure cards are placed in the player’s hand.
+    //2.	The treasure cards are placed in the player’s hand. - expect hand count to increase
     printf("TEST 2: The two treasure cards are placed in the player’s hand\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //3.	The cards should come from the player’s own pile.
+    //3.	The cards should come from the player’s own pile. - expect deck count to decrease
     printf("TEST 3: The cards should come from the player’s own pile.\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+    printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //4.	If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.
-    printf("TEST 4: If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.\n");
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //5.	No state change should occur for other players.
+    //4.	No state change should occur for other players.
     printf("TEST 5: No state change should occur for other players\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+    printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
+	assert(testG.handCount[otherPlayer] == G.handCount[otherPlayer]);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[otherPlayer]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //6.	The other revealed cards are discarded.
+    //5.	The other revealed cards are discarded. - expect discard count to increase by the number of cards discarded
     printf("TEST 6: The other revealed cards are discarded\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+    printf("discard count = %d, expected = %d\n", testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
+	assert(testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + discarded);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //7.	No state change should occur to the victory card piles and kingdom card piles.
+    //6.	No state change should occur to the victory card piles and kingdom card piles - victory cards are estate, duchy, and province
     printf("TEST 7: No state change should occur to the victory card piles and kingdom card piles\n");
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	choice1 = 1;
+	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-    // Call Adventurer using cardEffect()
-    testResult = cardEffect(k[0], k[1], k[2], k[3], struct gameState * G, int handPos, *bonus);
+    // test the kingdom cards
+    printf("Test the kingdom cards\n");
+    int j = 0;
+    for(j = 0; j < 10; j++){
+        assert(testG.supplyCount[k[j]] == G.supplyCount[k[j]]);
+    }
+
+    // test the victory cards - since we have two players, there should be 8 of each victory card
+    printf("there should be 8 of each victory card - estate, duchy, and province\n");
+    assert(testG.supplyCount[estate] == G.supplyCount[estate]);
+    assert(testG.supplyCount[duchy] == G.supplyCount[duchy]);
+    assert(testG.supplyCount[province] == G.supplyCount[province]);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 

@@ -13,12 +13,10 @@ int supplyCount(int card, struct gameState *state) {
 #include <assert.h>
 #include "rngs.h"
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 1
-
 int main()
 {
-    int i;
+    // variable seetup
+    int i, j;
     int seed = 1000;
     int numPlayer = 2;
     int maxBonus = 10;
@@ -26,51 +24,47 @@ int main()
     int cardCount = 10;
     int p, r;
     int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
-    struct gameState G;
+    struct gameState G, testG;
     int maxHandCount = 5;
     int handCount;
+    int numPlayers = 2;
+    int choice1 = 0, choice2 = 0, choice3 = 0, handpos = 0, bonus = 0;
 
-    // Arrays of hands
-    int someOfEach[MAX_HAND];   // different cards
-    int allAdventure[MAX_HAND]; // all the same card
-    int halves[MAX_HAND];       // two cards
-
-    // Initialize the hands
-    for (i = 0; i < MAX_HAND; i++){
-        int nextCard = i % 10;
-
-        someOfEach[i] = k[nextCard]; 
-        allAdventure[i] = adventurer;
-
-        if (i < MAX_HAND/2) {halves[i] = adventurer;}
-        else {halves[i] = council_room;}
-    }
+    // initialize a game state and player cards
+    initializeGame(numPlayers, k, seed, &G);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
 
     printf("UNIT TEST supplyCount():\n");
 
-    for (p = 0; p < numPlayer; p++)
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // do a test for each card
+    for (j = 0; j < 10; j++)
     {
-        for (testCard = 0; testCard < cardCount; testCard++)
-        {
-            for (handCount = 1; handCount <= maxHandCount; handCount++)
-            {
-#if (NOISY_TEST == 1)
-            printf("Test card %d.\n", testCard);
-#endif
-                memset(&G, 23, sizeof(struct gameState));           // clear the game state
-                r = initializeGame(numPlayer, k, seed, &G);         // initialize a new game
-                G.handCount[p] = handCount;                         // set the number of cards on hand
-                memcpy(G.supplyCount[p], coppers, sizeof(int) * handCount); // set all the cards to adventure
-                updateCoins(p, &G, bonus);
+        printf("Test %d - after %d card\n", j, j);
+        // copy the game state to a test state
+        memcpy(&testG, &G, sizeof(struct gameState));
 
-                // test the different cards
-                assert(G.supplyCount[testCard] == );                   // check if the supplyCount[card] is correct
-            }
+        cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+        // test for the victory cards - victory cards are estate, duchy, and province; great_hall is also considered a victory card
+        printf("Test - there should be 8 of each victory card for a two player game\n");
+        assert(G.supplyCount[estate] == testG.supplyCount[estate]);
+        assert(G.supplyCount[duchy] == testG.supplyCount[duchy]);
+        assert(G.supplyCount[province] == testG.supplyCount[province]);
+        assert(G.supplyCount[great_hall] == testG.supplyCount[great_hall]);
+
+        // test for kingdom cards - all but great_hall since that's a victory card
+        printf("Test - number of kingdom cards\n");
+        for (i = 0; i < 9; i++)
+        {
+            assert(G.supplyCount[k[i]] == testG.supplyCount[k[i]]);
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-char message = "All tests passed";
-printf(message);
+    char message = "All tests passed";
+    printf(message);
 
-return 0;
+    return 0;
 }

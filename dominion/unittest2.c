@@ -13,31 +13,36 @@ int whoseTurn(struct gameState *state) {
 #include <assert.h>
 #include "rngs.h"
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 1
-
 int main()
 {
-
+    // variable setup
     int i;
     int seed = 1000;
-    int numPlayer = 2;
+    int numPlayers = 2;
     int p, r;
     int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
-    struct gameState G;
+    struct gameState G, testG;
+    int choice1 = 0, choice2 = 0, choice3 = 0, handpos = 0, bonus = 0;
 
     printf("UNIT TEST whoseTurn():\n");
 
-    for (p = 0; p < numPlayer; p++)
-    {
-#if (NOISY_TEST == 1)
-        printf("Test player %d.\n", p);
-#endif
-        memset(&G, 23, sizeof(struct gameState));            // clear the game state
-        r = initializeGame(numPlayer, k, seed, &G);          // initialize a new game
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    printf("Test 1 - whose turn at beginning of game\n");
+    // copy the game state to a test case
+    memcpy(&testG, &G, sizeof(struct gameState));
+    assert(G.whoseTurn == testG.whoseTurn);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        assert(G.whoseTurn == p);             // check if whoseTurn is advancing through each player
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    for (i = 0; i < 10; i++)
+    {
+        printf("Test %d - whose turn after each kingdom card %d, called using cardEffect()\n", i, i);
+        // copy the game state to a test case
+        memcpy(&testG, &G, sizeof(struct gameState));
+        cardEffect(k[i], choice1, choice2, choice3, &testG, handpos, &bonus);
+        assert(G.whoseTurn == testG.whoseTurn);
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     char message = "All tests passed";
     printf(message);

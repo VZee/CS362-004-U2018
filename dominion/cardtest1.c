@@ -27,45 +27,89 @@ int main()
     int xtraCoins = 0;
     int shuffledCards = 0;
 
-    int i, j, m;
+    int i = 0, j, m;
     int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
     int remove1, remove2;
     int seed = 1000;
     int numPlayers = 2;
     int thisPlayer = 0;
+    int otherPlayer = 1;
     struct gameState G, testG;
-    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
-                 sea_hag, tribute, smithy, council_room};
+    int k[10] = {adventurer, embargo, village, minion, cutpurse,
+                 sea_hag, tribute, smithy, council_room, great_hall};
 
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
     printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
+    // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus
+    // for smithy: int i, int currentPlayer, struct gameState *state, int handPos
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // The requirements for the smithy card are:
-    //1.	Current player should receive exactly 3 cards.
+    //1.	Current player should receive exactly 3 cards.- expect hand count to increae
     printf("TEST 1: Current player should receive exactly 3 cards\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+	newCards = 3;
+	xtraCoins = 0;
+	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //2.	3 cards should come from the player’s own pile.
+    //2.	3 cards should come from the player’s own pile. - expect deck count to decrease
     printf("TEST 2: 3 cards should come from the player’s own pile\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+    newCards = 3;
+	xtraCoins = 0;
+	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
+	assert(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //3.	No state change should occur for other players.
     printf("TEST 3: No state change should occur for other players\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+
+    printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
+	printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
+	assert(testG.handCount[otherPlayer] == G.handCount[otherPlayer]);
+	assert(testG.deckCount[thisPlayer] == G.deckCount[otherPlayer]);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //4.	No state change should occur to the victory card piles and kingdom card piles
+    //4.	No state change should occur to the victory card piles and kingdom card piles - victory cards are estate, duchy, and province
     printf("TEST 4: No state change should occur to the victory card piles and kingdom card piles\n");
+    // copy the game state to a test case
+	memcpy(&testG, &G, sizeof(struct gameState));
+	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
 
+    // test the kingdom cards
+    printf("Test the kingdom cards\n");
+    int j = 0;
+    for(j = 0; j < 10; j++){
+        assert(testG.supplyCount[k[j]] == G.supplyCount[k[j]]);
+    }
+
+    // test the victory cards - since we have two players, there should be 8 of each victory card
+    printf("there should be 8 of each victory card - estate, duchy, and province\n");
+    assert(testG.supplyCount[estate] == G.supplyCount[estate]);
+    assert(testG.supplyCount[duchy] == G.supplyCount[duchy]);
+    assert(testG.supplyCount[province] == G.supplyCount[province]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Call Smithy using cardEffect()
-    // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
-    testResult = cardEffect(k[6], k[0], k[1], k[2], struct gameState * G, int handPos, *bonus);
 
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 

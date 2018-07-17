@@ -36,19 +36,18 @@ int isGameOver(struct gameState *state) {
 #include <assert.h>
 #include "rngs.h"
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 1
-
 int main() {
     int i;
     int seed = 1000;
-    int numPlayer = 2;
+    int numPlayers = 2;
     int maxBonus = 10;
     int p, r, handCount;
     int k[10] = {adventurer, council_room, feast, gardens, mine
                , remodel, smithy, village, baron, great_hall};
-    struct gameState G;
+               
+    struct gameState G, testG;
     int maxHandCount = 5;
+    int choice1 = 0, choice2 = 0, choice3 = 0, handpos = 0, bonus = 0;
     
     // two ways to end the game:
     // set the stack of province cards to empty
@@ -56,25 +55,42 @@ int main() {
 
     printf ("UNIT TEST isGameOver():\n");
 
-    for (p = 0; p < numPlayer; p++)
-    {
-        for (handCount = 1; handCount <= maxHandCount; handCount++)
-        {
-            memset(&G, 23, sizeof(struct gameState));            // clear the game state
-            r = initializeGame(numPlayer, k, seed, &G);          // initialize a new game
-            G.handCount[p] = handCount;                          // set the number of cards on hand
-            memcpy(G.hand[p], coppers, sizeof(int) * handCount); // set all the cards to copper - doesn't matter for this test
-            assert(G.coins == handCount * 1); // check if the supplyCount[card] is correct
-            
-#if (NOISY_TEST == 1)
-            printf("Test for empty stack of province cards.\n");
-#endif
+    // initialize a game state and player cards
+    initializeGame(numPlayers, k, seed, &G);
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
+    r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
 
-#if (NOISY_TEST == 1)
-            printf("Test to see if three supply piles are at 0.\n");
-#endif
-    }
-}
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    printf("Test 1 - initial game state\n");
+    // copy the game state to a test case
+    memcpy(&testG, &G, sizeof(struct gameState));
+
+    assert(isGameOver(&G) == isGameOver(&testG));
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    printf("Test 2 - stack of province cards in empty\n");
+    // set province cards to empty - 8 province cards for a two person game
+    memcpy(G.supplyCount[province], 0, sizeof(int) * 8); 
+
+    // copy the game state to a test case
+    memcpy(&testG, &G, sizeof(struct gameState));
+
+    assert(isGameOver(&G) == isGameOver(&testG));
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    printf("Test 3 - three supply piles are empty\n");
+    // set province cards to empty - 8 victory cards for a two person game - great_hall is considered a victory card
+    memcpy(G.supplyCount[estate], 0, sizeof(int) * 8); 
+    memcpy(G.supplyCount[duchy], 0, sizeof(int) * 8); 
+    memcpy(G.supplyCount[great_hall], 0, sizeof(int) * 8); 
+
+    // copy the game state to a test case
+    memcpy(&testG, &G, sizeof(struct gameState));
+
+    assert(isGameOver(&G) == isGameOver(&testG));
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 char message = "All tests passed";
 printf(message);
