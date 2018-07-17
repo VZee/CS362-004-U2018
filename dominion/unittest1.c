@@ -16,67 +16,61 @@ int supplyCount(int card, struct gameState *state) {
 // set NOISY_TEST to 0 to remove printfs from output
 #define NOISY_TEST 1
 
-int main() {
+int main()
+{
     int i;
     int seed = 1000;
     int numPlayer = 2;
     int maxBonus = 10;
-    int p, r, handCount;
-    int bonus;
-    int k[10] = {adventurer, council_room, feast, gardens, mine
-               , remodel, smithy, village, baron, great_hall};
+    int testCard = 0;
+    int cardCount = 10;
+    int p, r;
+    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
     struct gameState G;
     int maxHandCount = 5;
-    // arrays of all coppers, silvers, and golds
-    int coppers[MAX_HAND];
-    int silvers[MAX_HAND];
-    int golds[MAX_HAND];
-    for (i = 0; i < MAX_HAND; i++)
-    {
-        coppers[i] = copper;
-        silvers[i] = silver;
-        golds[i] = gold;
+    int handCount;
+
+    // Arrays of hands
+    int someOfEach[MAX_HAND];   // different cards
+    int allAdventure[MAX_HAND]; // all the same card
+    int halves[MAX_HAND];       // two cards
+
+    // Initialize the hands
+    for (i = 0; i < MAX_HAND; i++){
+        int nextCard = i % 10;
+
+        someOfEach[i] = k[nextCard]; 
+        allAdventure[i] = adventurer;
+
+        if (i < MAX_HAND/2) {halves[i] = adventurer;}
+        else {halves[i] = council_room;}
     }
 
-    printf ("UNIT TEST supplyCount():\n");
+    printf("UNIT TEST supplyCount():\n");
 
     for (p = 0; p < numPlayer; p++)
     {
-        for (handCount = 1; handCount <= maxHandCount; handCount++)
+        for (testCard = 0; testCard < cardCount; testCard++)
         {
-            for (bonus = 0; bonus <= maxBonus; bonus++)
+            for (handCount = 1; handCount <= maxHandCount; handCount++)
             {
 #if (NOISY_TEST == 1)
-                printf("Test player %d with %d treasure card(s) and %d bonus.\n", p, handCount, bonus);
+            printf("Test card %d.\n", testCard);
 #endif
-                memset(&G, 23, sizeof(struct gameState));   // clear the game state
-                r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
-                G.handCount[p] = handCount;                 // set the number of cards on hand
-                memcpy(G.hand[p], coppers, sizeof(int) * handCount); // set all the cards to copper
+                memset(&G, 23, sizeof(struct gameState));           // clear the game state
+                r = initializeGame(numPlayer, k, seed, &G);         // initialize a new game
+                G.handCount[p] = handCount;                         // set the number of cards on hand
+                memcpy(G.supplyCount[p], coppers, sizeof(int) * handCount); // set all the cards to adventure
                 updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 1 + bonus);
-#endif
-                assert(G.coins == handCount * 1 + bonus); // check if the number of coins is correct
 
-                memcpy(G.hand[p], silvers, sizeof(int) * handCount); // set all the cards to silver
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 2 + bonus);
-#endif
-                assert(G.coins == handCount * 2 + bonus); // check if the number of coins is correct
-
-                memcpy(G.hand[p], golds, sizeof(int) * handCount); // set all the cards to gold
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 3 + bonus);
-#endif
-                assert(G.coins == handCount * 3 + bonus); // check if the number of coins is correct
+                // test the different cards
+                assert(G.supplyCount[testCard] == );                   // check if the supplyCount[card] is correct
             }
         }
     }
 
-    printf("All tests passed!\n");
+char message = "All tests passed";
+printf(message);
 
-    return 0;
+return 0;
 }

@@ -1,4 +1,15 @@
 // Card test 2 - adventurer
+// Source: cardtest4.c
+/*
+The requirements for the adventurer card are:
+1.	Current player reveals cards until they find two treasure cards. 
+2.	The two treasure cards are placed in the player’s hand.
+3.	The cards should come from the player’s own pile.
+4.	If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.
+5.	No state change should occur for other players.
+6.	The other revealed cards are discarded.
+7.	No state change should occur to the victory card piles and kingdom card piles. 
+*/
 
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -10,66 +21,70 @@
 // set NOISY_TEST to 0 to remove printfs from output
 #define NOISY_TEST 1
 
-int main() {
-    int i;
+#define TESTCARD "adventurer"
+
+int main()
+{
+    int newCards = 0;
+    int discarded = 1;
+    int xtraCoins = 0;
+    int shuffledCards = 0;
+
+    int i, j, m;
+    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+    int remove1, remove2;
     int seed = 1000;
-    int numPlayer = 2;
-    int maxBonus = 10;
-    int p, r, handCount;
-    int bonus;
-    int k[10] = {adventurer, council_room, feast, gardens, mine
-               , remodel, smithy, village, baron, great_hall};
-    struct gameState G;
-    int maxHandCount = 5;
-    // arrays of all coppers, silvers, and golds
-    int coppers[MAX_HAND];
-    int silvers[MAX_HAND];
-    int golds[MAX_HAND];
-    for (i = 0; i < MAX_HAND; i++)
-    {
-        coppers[i] = copper;
-        silvers[i] = silver;
-        golds[i] = gold;
-    }
+    int numPlayers = 2;
+    int thisPlayer = 0;
+    struct gameState G, testG;
+    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
+                 sea_hag, tribute, smithy, council_room};
 
-    printf ("TESTING adventurer card:\n");
-    for (p = 0; p < numPlayer; p++)
-    {
-        for (handCount = 1; handCount <= maxHandCount; handCount++)
-        {
-            for (bonus = 0; bonus <= maxBonus; bonus++)
-            {
-#if (NOISY_TEST == 1)
-                printf("Test player %d with %d treasure card(s) and %d bonus.\n", p, handCount, bonus);
-#endif
-                memset(&G, 23, sizeof(struct gameState));   // clear the game state
-                r = initializeGame(numPlayer, k, seed, &G); // initialize a new game
-                G.handCount[p] = handCount;                 // set the number of cards on hand
-                memcpy(G.hand[p], coppers, sizeof(int) * handCount); // set all the cards to copper
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 1 + bonus);
-#endif
-                assert(G.coins == handCount * 1 + bonus); // check if the number of coins is correct
+    // initialize a game state and player cards
+    initializeGame(numPlayers, k, seed, &G);
 
-                memcpy(G.hand[p], silvers, sizeof(int) * handCount); // set all the cards to silver
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 2 + bonus);
-#endif
-                assert(G.coins == handCount * 2 + bonus); // check if the number of coins is correct
+    printf("----------------- Testing Card: %s ----------------\n", TESTCARD);
 
-                memcpy(G.hand[p], golds, sizeof(int) * handCount); // set all the cards to gold
-                updateCoins(p, &G, bonus);
-#if (NOISY_TEST == 1)
-                printf("G.coins = %d, expected = %d\n", G.coins, handCount * 3 + bonus);
-#endif
-                assert(G.coins == handCount * 3 + bonus); // check if the number of coins is correct
-            }
-        }
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // The requirements for the adventurer card are:
+    //1.	Current player reveals cards until they find two treasure cards.
+    printf("TEST 1: Current player reveals cards until they find two treasure cards.\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    printf("All tests passed!\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //2.	The two treasure cards are placed in the player’s hand.
+    printf("TEST 2: The two treasure cards are placed in the player’s hand\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //3.	The cards should come from the player’s own pile.
+    printf("TEST 3: The cards should come from the player’s own pile.\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //4.	If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.
+    printf("TEST 4: If the player has to shuffle their discard pile and after shuffling and revealing the shuffled deck has less than two treasure cards, their turn is over.\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //5.	No state change should occur for other players.
+    printf("TEST 5: No state change should occur for other players\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //6.	The other revealed cards are discarded.
+    printf("TEST 6: The other revealed cards are discarded\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //7.	No state change should occur to the victory card piles and kingdom card piles.
+    printf("TEST 7: No state change should occur to the victory card piles and kingdom card piles\n");
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Call Adventurer using cardEffect()
+    testResult = cardEffect(k[0], k[1], k[2], k[3], struct gameState * G, int handPos, *bonus);
+
+    printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
 
     return 0;
 }
