@@ -31,6 +31,10 @@ Test 9 - after 9 card
 Test - there should be 8 of each victory card for a two player game
 Test - number of kingdom cards
 All tests passed
+File 'dominion.c'
+Lines executed:18.79% of 580
+Creating 'dominion.c.gcov'
+
 unittest2.c:
 UNIT TEST whoseTurn():
 Test 1 - whose turn at beginning of game
@@ -45,14 +49,130 @@ Test 9 - whose turn after kingdom card 7, called using cardEffect()
 Test 10 - whose turn after kingdom card 8, called using cardEffect()
 Test 11 - whose turn after kingdom card 9, called using cardEffect()
 All tests passed
+File 'dominion.c'
+Lines executed:32.76% of 580
+Creating 'dominion.c.gcov'
+
 unittest3.c:
 UNIT TEST isGameOver():
 Test 1 - initial game state
 Test 2 - stack of province cards in empty
 8Test 3 - three supply piles are empty
 All tests passed
+File 'dominion.c'
+Lines executed:34.48% of 580
+Creating 'dominion.c.gcov'
+
 unittest4.c:
 UNIT TEST fullDeckCount():
 Test 1 - player 1 and each kingdom card
 Test 2 - player 2 and each kingdom card
 All tests passed!
+File 'dominion.c'
+Lines executed:35.86% of 580
+Creating 'dominion.c.gcov'
+
+cardtest1.c:
+----------------- Testing Card: smithy ----------------
+TEST 1: Current player should receive exactly 3 cards
+hand count = 6, expected = 7
+deck count = 3, expected = 2
+hand count failed
+deck count failed
+TEST 2: 3 cards should come from the player’s own pile
+hand count = 6, expected = 7
+deck count = 3, expected = 2
+hand count failed
+deck count failed
+TEST 3: No state change should occur for other players
+hand count = 0, expected = 0
+deck count = 10, expected = 10
+deck count failed
+TEST 4: No state change should occur to the victory card piles and kingdom card piles
+Test the kingdom cards
+there should be 8 of each victory card - estate, duchy, and province
+
+ >>>>> SUCCESS: Testing complete smithy <<<<<
+
+File 'dominion.c'
+Lines executed:35.86% of 580
+Creating 'dominion.c.gcov'
+
+cardtest2.c:
+----------------- Testing Card: adventurer ----------------
+TEST 1: Current player reveals cards until they find two treasure cards.
+TEST 2: The two treasure cards are placed in the player’s hand
+hand count = 7, expected = 4
+deck count = 3, expected = 5
+hand count failed
+deck count failed
+TEST 3: The cards should come from the player’s own pile.
+hand count = 7, expected = 4
+deck count = 3, expected = 5
+hand count failed
+deck count failed
+TEST 5: No state change should occur for other players
+hand count = 0, expected = 0
+deck count = 10, expected = 10
+deck count failed
+TEST 6: The other revealed cards are discarded
+discard count = 0, expected = 1
+discard count failed
+TEST 7: No state change should occur to the victory card piles and kingdom card piles
+Test the kingdom cards
+there should be 8 of each victory card - estate, duchy, and province
+
+ >>>>> SUCCESS: Testing complete adventurer <<<<<
+
+File 'dominion.c'
+Lines executed:35.86% of 580
+Creating 'dominion.c.gcov'
+
+cardtest3.c:
+----------------- Testing Card: village ----------------
+TEST 1: Current player should receive exactly 1 card.
+hand count = 5, expected = 5
+deck count = 4, expected = 4
+TEST 2: 1 card should come from the player’s own pile
+hand count = 5, expected = 5
+deck count = 4, expected = 4
+TEST 3: No state change should occur for other players.
+hand count = 0, expected = 0
+deck count = 10, expected = 10
+deck count failed
+TEST 4: No state change should occur to the kingdom card piles.
+Test the kingdom cards
+there should be 8 of each victory card - estate, duchy, and province
+TEST 5: Current player receives 1 additional action.
+actions = 2, expected = 2
+
+ >>>>> SUCCESS: Testing complete village <<<<<
+
+File 'dominion.c'
+Lines executed:35.86% of 580
+Creating 'dominion.c.gcov'
+
+cardtest4.c:
+----------------- Testing Card: great hall ----------------
+TEST 1: Current player should receive exactly 1 card.
+hand count = 5, expected = 5
+deck count = 4, expected = 4
+TEST 2: 1 card should come from the player’s own pile.
+hand count = 5, expected = 5
+deck count = 4, expected = 4
+TEST 3: No state change should occur for other players.
+hand count = 0, expected = 0
+deck count = 10, expected = 10
+deck count failed
+TEST 4: No state change should occur to the victory card piles and kingdom card piles.
+Test the kingdom cards
+there should be 8 of each victory card - estate, duchy, and province
+TEST 5: Current player receives 2 additional actions.
+actions = 3, expected = 3
+
+ >>>>> SUCCESS: Testing complete great hall <<<<<
+
+File 'dominion.c'
+Lines executed:35.86% of 580
+Creating 'dominion.c.gcov'
+
