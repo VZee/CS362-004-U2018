@@ -66,25 +66,30 @@ int main() {
     memcpy(&testG, &G, sizeof(struct gameState));
 
     assert(isGameOver(&G) == isGameOver(&testG));
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     printf("Test 2 - stack of province cards in empty\n");
+    r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
     // set province cards to empty - 8 province cards for a two person game
-    memcpy(G.supplyCount[province], 0, sizeof(int) * 8); 
+    printf("%d", G.supplyCount[province]);
+    memset(&G.supplyCount[province], 0, sizeof(int) * 1); 
 
     // copy the game state to a test case
     memcpy(&testG, &G, sizeof(struct gameState));
 
     assert(isGameOver(&G) == isGameOver(&testG));
+    memset(&G, 23, sizeof(struct gameState));   // clear the game state
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     printf("Test 3 - three supply piles are empty\n");
+    r = initializeGame(numPlayers, k, seed, &G); // initialize a new game
     // set province cards to empty - 8 victory cards for a two person game - great_hall is considered a victory card
-    memcpy(G.supplyCount[estate], 0, sizeof(int) * 8); 
-    memcpy(G.supplyCount[duchy], 0, sizeof(int) * 8); 
-    memcpy(G.supplyCount[great_hall], 0, sizeof(int) * 8); 
+    memset(&G.supplyCount[estate], 0, sizeof(int) * 1);
+    memset(&G.supplyCount[duchy], 0, sizeof(int) * 1); 
+    memset(&G.supplyCount[great_hall], 0, sizeof(int) * 1); 
 
     // copy the game state to a test case
     memcpy(&testG, &G, sizeof(struct gameState));
@@ -92,8 +97,7 @@ int main() {
     assert(isGameOver(&G) == isGameOver(&testG));
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-char message = "All tests passed";
-printf(message);
+    printf("All tests passed\n");
 
 return 0;
 }

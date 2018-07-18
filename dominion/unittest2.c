@@ -25,6 +25,8 @@ int main()
     int choice1 = 0, choice2 = 0, choice3 = 0, handpos = 0, bonus = 0;
 
     printf("UNIT TEST whoseTurn():\n");
+    // initialize a game state and player cards
+    r = initializeGame(numPlayers, k, seed, &G);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     printf("Test 1 - whose turn at beginning of game\n");
@@ -34,18 +36,16 @@ int main()
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    for (i = 0; i < 10; i++)
-    {
-        printf("Test %d - whose turn after each kingdom card %d, called using cardEffect()\n", i, i);
-        // copy the game state to a test case
-        memcpy(&testG, &G, sizeof(struct gameState));
-        cardEffect(k[i], choice1, choice2, choice3, &testG, handpos, &bonus);
-        assert(G.whoseTurn == testG.whoseTurn);
+    for (p = 0; p < 10; p++){
+    printf("Test %d - whose turn after kingdom card %d, called using cardEffect()\n", p+2, p);
+    // copy the game state to a test case
+    memcpy(&testG, &G, sizeof(struct gameState));
+    cardEffect(k[p], choice1, choice2, choice3, &testG, handpos, &bonus);
+    assert(G.whoseTurn == testG.whoseTurn);
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    char message = "All tests passed";
-    printf(message);
+    printf("All tests passed\n");
 
     return 0;
 }

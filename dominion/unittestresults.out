@@ -1,0 +1,58 @@
+unittest1.c:
+UNIT TEST supplyCount():
+Test 0 - after 0 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 1 - after 1 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 2 - after 2 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 3 - after 3 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 4 - after 4 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 5 - after 5 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 6 - after 6 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 7 - after 7 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 8 - after 8 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+Test 9 - after 9 card
+Test - there should be 8 of each victory card for a two player game
+Test - number of kingdom cards
+All tests passed
+unittest2.c:
+UNIT TEST whoseTurn():
+Test 1 - whose turn at beginning of game
+Test 2 - whose turn after kingdom card 0, called using cardEffect()
+Test 3 - whose turn after kingdom card 1, called using cardEffect()
+Test 4 - whose turn after kingdom card 2, called using cardEffect()
+Test 5 - whose turn after kingdom card 3, called using cardEffect()
+Test 6 - whose turn after kingdom card 4, called using cardEffect()
+Test 7 - whose turn after kingdom card 5, called using cardEffect()
+Test 8 - whose turn after kingdom card 6, called using cardEffect()
+Test 9 - whose turn after kingdom card 7, called using cardEffect()
+Test 10 - whose turn after kingdom card 8, called using cardEffect()
+Test 11 - whose turn after kingdom card 9, called using cardEffect()
+All tests passed
+unittest3.c:
+UNIT TEST isGameOver():
+Test 1 - initial game state
+Test 2 - stack of province cards in empty
+8Test 3 - three supply piles are empty
+All tests passed
+unittest4.c:
+UNIT TEST fullDeckCount():
+Test 1 - player 1 and each kingdom card
+Test 2 - player 2 and each kingdom card
+All tests passed!

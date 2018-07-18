@@ -44,7 +44,6 @@ int main()
     int firstPlayer = 0;
     int secondPlayer = 1;
     int p, r, handCount;
-    int bonus;
     int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
     struct gameState G, testG;
     int maxHandCount = 5;
