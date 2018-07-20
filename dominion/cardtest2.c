@@ -94,7 +94,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //4.	No state change should occur for other players.
-    printf("TEST 5: No state change should occur for other players\n");
+    printf("TEST 4: No state change should occur for other players\n");
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
@@ -112,7 +112,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //5.	The other revealed cards are discarded. - expect discard count to increase by the number of cards discarded
-    printf("TEST 6: The other revealed cards are discarded\n");
+    printf("TEST 5: The other revealed cards are discarded\n");
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
@@ -128,7 +128,7 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //6.	No state change should occur to the victory card piles and kingdom card piles - victory cards are estate, duchy, and province
-    printf("TEST 7: No state change should occur to the victory card piles and kingdom card piles\n");
+    printf("TEST 6: No state change should occur to the victory card piles and kingdom card piles\n");
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
