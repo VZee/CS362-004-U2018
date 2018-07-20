@@ -99,7 +99,7 @@ int main()
     printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
 	if(!(testG.handCount[otherPlayer] == G.handCount[otherPlayer])){printf("hand count failed\n");}
-	if(!(testG.deckCount[thisPlayer] == G.deckCount[otherPlayer])){printf("deck count failed\n");}
+	if(!(testG.deckCount[otherPlayer] == G.deckCount[otherPlayer])){printf("deck count failed\n");}
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -6339,7 +6339,6 @@ deck count failed
 TEST 3: No state change should occur for other players
 hand count = 0, expected = 0
 deck count = 10, expected = 10
-deck count failed
 TEST 4: No state change should occur to the victory card piles and kingdom card piles
 Test the kingdom cards
 there should be 8 of each victory card - estate, duchy, and province
@@ -7929,7 +7928,6 @@ deck count failed
 TEST 5: No state change should occur for other players
 hand count = 0, expected = 0
 deck count = 10, expected = 10
-deck count failed
 TEST 6: The other revealed cards are discarded
 discard count = 0, expected = 1
 discard count failed
@@ -9517,7 +9515,6 @@ deck count = 4, expected = 4
 TEST 3: No state change should occur for other players.
 hand count = 0, expected = 0
 deck count = 10, expected = 10
-deck count failed
 TEST 4: No state change should occur to the kingdom card piles.
 Test the kingdom cards
 there should be 8 of each victory card - estate, duchy, and province
@@ -11104,7 +11101,6 @@ deck count = 4, expected = 4
 TEST 3: No state change should occur for other players.
 hand count = 0, expected = 0
 deck count = 10, expected = 10
-deck count failed
 TEST 4: No state change should occur to the victory card piles and kingdom card piles.
 Test the kingdom cards
 there should be 8 of each victory card - estate, duchy, and province
