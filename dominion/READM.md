@@ -3,7 +3,8 @@ Onid: katlubel
 
 Introduction:
 This is the README for assignment 3, unit testing. There are four unit tests for functions, and four card tests.
-This code is testing buggy code, with a focus on finding where the code fails to execute as expected.
+This code is testing buggy code for the cards, with a focus on finding where the code fails to execute as expected.
+The tests were not written to explicitly find the bugs.
 
 Makefile:
 This project uses a Makefile. To execute, first ensure permissions are set by using chmod +x Makefile.
