@@ -25,6 +25,7 @@ The requirements for the village card are:
 int main()
 {
     srand(time(NULL));
+    
     int loop = 200;
     int k;
 
@@ -106,7 +107,8 @@ int main()
         {
             printf("deck count failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
                                                   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,8 +134,8 @@ int main()
         {
             printf("deck count failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //3.	No state change should occur for other players - expect hand count and deck count to remain the same
@@ -152,15 +154,15 @@ int main()
         {
             if (!(testG.handCount[z] == G.handCount[z]))
             {
-                printf("hand count failed\n");
+                printf("hand count failed for player %d\n", z);
             }
             if (!(testG.deckCount[z] == G.deckCount[z]))
             {
-                printf("deck count failed\n");
+                printf("deck count failed for player %d\n", z);
             }
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //4.	No state change should occur to the victory card piles and kingdom card piles - victory cards are estate, duchy, and province
@@ -174,11 +176,10 @@ int main()
         cardEffect(great_hall, choice1, choice2, choice3, &testG, handpos, &bonus);
 
         // test the kingdom cards
-        printf("Test the kingdom cards\n");
         j = 0;
         for (j = 0; j < 10; j++)
         {
-            assert(testG.supplyCount[k[j]] == G.supplyCount[k[j]]);
+            if(testG.supplyCount[k[j]] != G.supplyCount[k[j]]) printf("Kingdom supply count failed\n");
         }
 
         // test the victory cards - since we have two players, there should be 8 of each victory card
@@ -195,8 +196,8 @@ int main()
         {
             printf("supply count province failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //5.	Current player receives 2 additional actions.
@@ -214,7 +215,7 @@ int main()
         {
             printf("num actions failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);

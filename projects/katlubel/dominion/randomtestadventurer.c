@@ -95,8 +95,8 @@ int main()
         memcpy(&testG, &G, sizeof(struct gameState));
         choice1 = 1;
         cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //2.	The treasure cards are placed in the player’s hand. - expect hand count to increase
@@ -119,8 +119,8 @@ int main()
         {
             printf("deck count failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //3.	The cards should come from the player’s own pile. - expect deck count to decrease
@@ -143,8 +143,8 @@ int main()
         {
             printf("deck count failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //4.	No state change should occur for other players.
@@ -163,15 +163,15 @@ int main()
         {
             if (!(testG.handCount[z] == G.handCount[z]))
             {
-                printf("hand count failed\n");
+                printf("hand count failed for player %d\n", z);
             }
             if (!(testG.deckCount[z] == G.deckCount[z]))
             {
-                printf("deck count failed\n");
+                printf("deck count failed for player %d\n", z);
             }
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //5.	The other revealed cards are discarded. - expect discard count to increase by the number of cards discarded
@@ -189,8 +189,8 @@ int main()
         {
             printf("discard count failed\n");
         }
-        memset(&G, 23, sizeof(struct gameState)); // clear the game state
-                                                  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //memset(&G, 23, sizeof(struct gameState)); // clear the game state
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //6.	No state change should occur to the victory card piles and kingdom card piles - victory cards are estate, duchy, and province
@@ -209,7 +209,7 @@ int main()
         for (j = 0; j < 10; j++)
         {
             if (testG.supplyCount[k[j]] != G.supplyCount[k[j]])
-                printf("Kingdom card failed \n");
+                printf("Kingdom card supply count failed \n");
         }
 
         // test the victory cards - since we have two players, there should be 8 of each victory card
