@@ -24,6 +24,10 @@ The requirements for the smithy card are:
 int main()
 {
     srand(time(NULL));
+
+    // start the timer
+    clock_t before = clock();
+    
     int loop = 200;
     int k;
 
@@ -192,6 +196,14 @@ int main()
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
+
+    // stop the timer
+    clock_t stop_time = clock() - before;
+
+    double total_time = ((double)stop_time)/CLOCKS_PER_SEC;
+
+    // print the time
+    printf("The program took %f ns to run\n", 1000000.*total_time);
 
     return 0;
 }

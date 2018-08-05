@@ -25,6 +25,9 @@ The requirements for the village card are:
 int main()
 {
     srand(time(NULL));
+
+    // start the timer
+    clock_t before = clock();
     
     int loop = 200;
     int k;
@@ -37,7 +40,7 @@ int main()
         int discarded = 1;
         int xtraCoins = 0;
         int shuffledCards = 0;
-        int increaseActions = 2;
+        int increaseActions = 1;
 
         int i, j, m, z;
         int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
@@ -219,6 +222,14 @@ int main()
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
+
+    // stop the timer
+    clock_t stop_time = clock() - before;
+
+    double total_time = ((double)stop_time)/CLOCKS_PER_SEC;
+
+    // print the time
+    printf("The program took %f ns to run\n", 1000000.*total_time);
 
     return 0;
 }
