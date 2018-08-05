@@ -38,13 +38,19 @@ int main()
         int xtraCoins = 0;
         int shuffledCards = 0;
 
-        int i, j, m;
+        int i, j, m, z;
         int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
         int remove1, remove2;
         int seed = 1000;
-        int numPlayers = 2;
+
+        int upperNumber = 5;
+        int lowerNumber = 2;
+
+        // get a random number of players between two and 5
+        int numPlayers = rand() % (upperNumber - lowerNumber) + 1;
         int thisPlayer = 0;
-        int otherPlayer = 1;
+        int otherPlayer;
+
         struct gameState G, testG;
         int k[10] = {adventurer, embargo, village, minion, cutpurse,
                      sea_hag, tribute, smithy, council_room, great_hall};
@@ -126,13 +132,16 @@ int main()
 
         //printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
         //printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
-        if (!(testG.handCount[otherPlayer] == G.handCount[otherPlayer]))
+        for (z = 1; z < numPlayers; z++)
         {
-            printf("hand count failed\n");
-        }
-        if (!(testG.deckCount[otherPlayer] == G.deckCount[otherPlayer]))
-        {
-            printf("deck count failed\n");
+            if (!(testG.handCount[z] == G.handCount[z]))
+            {
+                printf("hand count failed\n");
+            }
+            if (!(testG.deckCount[z] == G.deckCount[z]))
+            {
+                printf("deck count failed\n");
+            }
         }
         memset(&G, 23, sizeof(struct gameState)); // clear the game state
                                                   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
