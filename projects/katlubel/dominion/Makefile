@@ -1,4 +1,5 @@
 CFLAGS = -Wall -fpic -coverage -lm -std=c99
+
 rngs.o:
 	gcc -c rngs.c -g  $(CFLAGS)
 
@@ -30,7 +31,6 @@ randomtestadventurer:
 	gcov dominion.c >> randomtestsresults.out
 	cat dominion.c.gcov >> randomtestsresults.out
 	
-
 randomtestsresults: cleanall rngs.o dominion.o randomtestcard1 randomtestcard2 randomtestadventurer
 
 clean:

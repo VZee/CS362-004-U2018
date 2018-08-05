@@ -47,11 +47,38 @@ int main()
         int otherPlayer;
 
         struct gameState G, testG;
-        int k[10] = {adventurer, embargo, village, minion, cutpurse,
-                     sea_hag, tribute, smithy, council_room, great_hall};
+        int nextNum;
+
+        int cards[22] = {estate, duchy, province, adventurer, council_room,
+                         feast, gardens, mine, remodel, village, baron, great_hall,
+                         minion, steward, tribute, ambassador, cutpurse, embargo, outpost,
+                         salvager, sea_hag, treasure_map};
+
+        int k[10];
+        k[0] = smithy;
+
+        // set up the deck
+        for (z = 1; z < 10; z++)
+        {
+            // get the next card
+            nextNum = rand() % 22;
+
+            // check to make sure that card is valid
+            while (cards[nextNum] == 0)
+            {
+                nextNum = rand() % 22;
+            }
+
+            // add that card to the deck
+            k[z] = cards[nextNum];
+
+            // and set that card equal to 0
+            cards[nextNum] = 0;
+        }
 
         // initialize a game state and player cards
         initializeGame(numPlayers, k, seed, &G);
+
         // int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus
         // for smithy: int i, int currentPlayer, struct gameState *state, int handPos
 
