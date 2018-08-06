@@ -46,7 +46,7 @@ public class UrlValidatorTest extends TestCase {
 
    public void testFalseScheme(){
        // Partition to test each scheme with the same rest of the URL
-       String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("3ht://255.com"));
         assertFalse(urlVal.isValid("http:/255.com"));
