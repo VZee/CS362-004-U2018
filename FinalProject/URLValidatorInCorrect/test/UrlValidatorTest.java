@@ -148,29 +148,9 @@ public class UrlValidatorTest extends TestCase {
    }
    ////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*
+
    ////////////////////////////////////////////////////////////////////////////////////////////////
    // Program Based Testing
    public void testIsValid1() {
-        // to check whether the default_schemes work
-    
-        UrlValidator urlValidator = new UrlValidator();
-    
-        assertFalse(urlValidator.isValid("http://www.example.com/devil&dog.html"));  //should be converted to ASCII
-        assertFalse(urlValidator.isValid("http://300.55.32.257.00.98.00.98"));
-        assertTrue(urlValidator.isValid("https://news.google.com"));
-        assertTrue(urlValidator.isValid("http://www.example.com/space%20here.html")); //correctly converted to ASCII
-        assertFalse(urlValidator.isValid(null));
-        assertTrue(urlValidator.isValid("http://www.amazon.com"));
-    }
-    
-    public void testIsValid2() {
-        //to test when the defined scheme is passed in
-             
-        String[] scheme = {"http", "https"};
-        UrlValidator urlValidator = new UrlValidator(scheme);
-        assertFalse(urlValidator.isValid("http:/go.com:0/test1/?action=view"));  //invalid - missing slash
-        assertTrue(urlValidator.isValid("http://www.amazon.com/?action=edit&mode=up"));         
-    }
-   */
+
 }
