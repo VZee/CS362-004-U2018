@@ -28,17 +28,31 @@ public class UrlValidatorTest extends TestCase {
 
 
    ////////////////////////////////////////////////////////////////////////////////////////////////
-   // Partition Testing
+   // Partition Testing 
+   
    public void testYourFirstPartition()
    {
 	    // List of the string that will be used for input partitioning testing
         // All valid
+        
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("http://www.google.com:80/test1?action=view"));
         assertTrue(urlVal.isValid("ftp://go.au/test1/"));
         assertTrue(urlVal.isValid("10.0.0.0/$23"));
         assertTrue(urlVal.isValid("h3t://255.255.255.255/t123?action=edit&mode=up"));
+        assertTrue(urlVal.isValid("www.google.com:80/test1?action=view"));
+   }
+
+   public void testFalseScheme(){
+       // Partition to test each scheme with the same rest of the URL
+       String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        UrlValidator urlVal = new UrlValidator(scheme);
+        assertFalse(urlVal.isValid("3ht://255.com"));
+        assertFalse(urlVal.isValid("http:/255.com"));
+        assertFalse(urlVal.isValid("http:255.com"));
+        assertFalse(urlVal.isValid("http/255.com"));
+        assertFalse(urlVal.isValid("://255.com"));
    }
    
    public void testYourSecondPartition(){
@@ -68,6 +82,7 @@ public class UrlValidatorTest extends TestCase {
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http:/go.com:0/test1/?action=view"));
         assertFalse(urlVal.isValid("3ht://go.au/test1/"));
+        assertFalse(urlVal.isValid("http/255.com/t123?action=edit&mode=up"));
         assertFalse(urlVal.isValid("http:255.com/t123?action=edit&mode=up"));
         assertFalse(urlVal.isValid("://255.255.255.255:65535?action=edit&mode=up"));
    }
@@ -133,7 +148,7 @@ public class UrlValidatorTest extends TestCase {
    }
    ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/*
    ////////////////////////////////////////////////////////////////////////////////////////////////
    // Program Based Testing
    public void testIsValid1() {
@@ -157,5 +172,5 @@ public class UrlValidatorTest extends TestCase {
         assertFalse(urlValidator.isValid("http:/go.com:0/test1/?action=view"));  //invalid - missing slash
         assertTrue(urlValidator.isValid("http://www.amazon.com/?action=edit&mode=up"));         
     }
-   
+   */
 }
