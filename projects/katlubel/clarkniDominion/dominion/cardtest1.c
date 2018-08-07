@@ -1,6 +1,8 @@
 // Card test 1 - smithy
 // Source: cardtest4.c
 // Updated card test to test team member's code
+// That code called smithy with: cardEffectSmithy(thisPlayer, &testG, handpos);
+// This test was refactored accordingly
 /*
 The requirements for the smithy card are: 
 1.	Current player should receive exactly 3 cards.
@@ -50,7 +52,9 @@ int main()
     printf("TEST 1: Current player should receive exactly 3 cards\n");
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+    // the refactored smithy code is: int cardEffectSmithy(int currentPlayer, struct gameState *state, int handPos)
+    cardEffectSmithy(thisPlayer, &testG, handpos);
 
 	newCards = 3;
 	xtraCoins = 0;
@@ -69,7 +73,8 @@ int main()
 
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectSmithy(thisPlayer, &testG, handpos);
 
     newCards = 3;
 	xtraCoins = 0;
@@ -88,7 +93,8 @@ int main()
 
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectSmithy(thisPlayer, &testG, handpos);
 
     printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
@@ -105,7 +111,8 @@ int main()
 
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
-	cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(smithy, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectSmithy(thisPlayer, &testG, handpos);
 
     // test the kingdom cards
     printf("Test the kingdom cards\n");

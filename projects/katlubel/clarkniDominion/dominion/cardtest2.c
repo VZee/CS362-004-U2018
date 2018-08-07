@@ -1,6 +1,8 @@
 // Card test 2 - adventurer
 // Source: cardtest4.c
 // Updated card test to test team member's code
+// That code called adventurer with int cardEffectAdventurer(int currentPlayer, struct gameState *state, int temphand[])
+// This code was refactored accordingly, including adding in temphand
 /*
 The requirements for the adventurer card are:
 1.	Current player reveals cards until they find two treasure cards. 
@@ -37,6 +39,7 @@ int main()
     struct gameState G, testG;
     int k[10] = {adventurer, embargo, village, minion, cutpurse,
                  sea_hag, tribute, smithy, council_room, great_hall};
+    int temphand[20];
 
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
@@ -53,7 +56,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -66,7 +70,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
 
 	printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
@@ -84,7 +89,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
 
     printf("hand count = %d, expected = %d\n", testG.handCount[thisPlayer], G.handCount[thisPlayer] + newCards - discarded);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
@@ -102,7 +108,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
 
     printf("hand count = %d, expected = %d\n", testG.handCount[otherPlayer], G.handCount[otherPlayer]);
 	printf("deck count = %d, expected = %d\n", testG.deckCount[otherPlayer], G.deckCount[otherPlayer]);
@@ -120,7 +127,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
 
     printf("discard count = %d, expected = %d\n", testG.discardCount[thisPlayer], G.discardCount[thisPlayer] + discarded);
 	if(!(testG.discardCount[thisPlayer] == G.discardCount[thisPlayer] + discarded)){printf("discard count failed\n");}
@@ -136,7 +144,8 @@ int main()
     // copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
 	choice1 = 1;
-	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+	//cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+    cardEffectAdventurer(thisPlayer, &testG, temphand);
 
     // test the kingdom cards
     printf("Test the kingdom cards\n");

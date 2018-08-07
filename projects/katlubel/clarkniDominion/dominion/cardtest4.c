@@ -1,6 +1,7 @@
 // Card test 4 - great hall
 // Source: cardtest4.c
 // Updated card test to test team member's code
+// Great_hall was not refactored in that code, so this test remains as written
 /*
 The requirements for the village card are:
 1.	Current player should receive exactly 1 card.
