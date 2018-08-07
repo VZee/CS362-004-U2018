@@ -29,30 +29,53 @@ public class UrlValidatorTest extends TestCase {
 
    ////////////////////////////////////////////////////////////////////////////////////////////////
    // Partition Testing 
-   
+   // List of the string that will be used for input partitioning testing
+    // All valid schemes were tested once the first valid url failed
    public void testYourFirstPartition()
    {
-	    // List of the string that will be used for input partitioning testing
-        // All valid
-        
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("http://www.google.com:80/test1?action=view"));
+   }
+
+   public void testSecondScheme(){
+        String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("ftp://go.au/test1/"));
+   }
+
+   public void testThirdScheme(){
+        String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("10.0.0.0/$23"));
+   }
+
+   public void testFourthScheme(){
+        String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("h3t://255.255.255.255/t123?action=edit&mode=up"));
+   }
+
+   public void testFifthScheme(){
+        String[] scheme = {"http", "https", "ftp", "", "h3t"};
+        UrlValidator urlVal = new UrlValidator(scheme);
         assertTrue(urlVal.isValid("www.google.com:80/test1?action=view"));
    }
 
+   // Now test false schemes
    public void testFalseScheme(){
        // Partition to test each scheme with the same rest of the URL
         String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("3ht://255.com"));
-        assertFalse(urlVal.isValid("http:/255.com"));
+        assertTrue(urlVal.isValid("ftp://go.au/test1/"));
+        assertTrue(urlVal.isValid("10.0.0.0/$23"));
+        assertTrue(urlVal.isValid("h3t://255.255.255.255/t123?action=edit&mode=up"));
+        assertTrue(urlVal.isValid("www.google.com:80/test1?action=view"));
+       /* assertFalse(urlVal.isValid("http:/255.com"));
         assertFalse(urlVal.isValid("http:255.com"));
         assertFalse(urlVal.isValid("http/255.com"));
-        assertFalse(urlVal.isValid("://255.com"));
+        assertFalse(urlVal.isValid("://255.com"));*/
    }
    
    public void testYourSecondPartition(){
@@ -61,9 +84,9 @@ public class UrlValidatorTest extends TestCase {
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http:256.256.256.256:-1/../"));
-        assertFalse(urlVal.isValid("://:65636/.."));
+        /*assertFalse(urlVal.isValid("://:65636/.."));
         assertFalse(urlVal.isValid("3ht://.1.2.3.4:-1/../"));
-        assertFalse(urlVal.isValid("http:/256.256.256.256:65a/test1//file"));
+        assertFalse(urlVal.isValid("http:/256.256.256.256:65a/test1//file"));*/
    }
     
    public void testYourThirdPartition(){
