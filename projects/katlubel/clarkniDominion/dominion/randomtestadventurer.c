@@ -1,5 +1,8 @@
 // Author: Louisa Katlubeck
 // Description: Random test for adventurer card
+// Updated card test to test team member's code
+// That code called adventurer with int cardEffectAdventurer(int currentPlayer, struct gameState *state, int temphand[])
+// This code was refactored accordingly, including adding in temphand
 
 // Card test 2 - adventurer
 // Source: cardtest4.c

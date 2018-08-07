@@ -88,8 +88,5 @@ randomtestadventurer:
 
 unittestresults: cleanall rngs.o dominion.o unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestcard1 randomtestcard2 randomtestadventurer
 
-clean:
-	rm unittestresults.out
-
 cleanall: 
-	rm -f *.o unittestresults.out unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 *.gcda *.gcno *.gcov
+	rm -f *.o unittestresults.out randomtestcard1.out randomtestcard2.out randomtestadventurer.out unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 *.gcda *.gcno *.gcov

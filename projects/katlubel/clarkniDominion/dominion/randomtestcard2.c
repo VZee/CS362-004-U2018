@@ -1,5 +1,8 @@
 // Author: Louisa Katlubeck
 // Description: Random test for Smithy card
+// Updated card test to test team member's code
+// That code called smithy with: cardEffectSmithy(thisPlayer, &testG, handpos);
+// This test was refactored accordingly
 
 // Card test 1 - smithy
 // Source: cardtest4.c

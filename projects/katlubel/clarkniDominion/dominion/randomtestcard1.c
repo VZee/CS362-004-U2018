@@ -1,5 +1,7 @@
 // Author: Louisa Katlubeck
 // Description: Random test for Great Hall card
+// Updated card test to test team member's code
+// Great_hall was not refactored in that code, so this test remains as written
 
 // Card test 4 - great hall
 // Source: cardtest4.c
