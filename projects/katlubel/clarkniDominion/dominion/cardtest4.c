@@ -133,8 +133,8 @@ int main()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //5.	Current player receives 2 additional actions.
-    printf("TEST 5: Current player receives 2 additional actions.\n");
+    //5.	Current player receives 1 additional actions.
+    printf("TEST 5: Current player receives 1  additional action.\n");
     // initialize a game state and player cards
     initializeGame(numPlayers, k, seed, &G);
 
@@ -144,7 +144,7 @@ int main()
 	cardEffect(great_hall, choice1, choice2, choice3, &testG, handpos, &bonus);
 
     printf("actions = %d, expected = %d\n", testG.numActions, G.numActions + increaseActions);
-	if(!(testG.numActions == G.numActions + increaseActions)){printf("num actions failed\n");}
+	if(!(testG.numActions == G.numActions + 1)){printf("num actions failed\n");}
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

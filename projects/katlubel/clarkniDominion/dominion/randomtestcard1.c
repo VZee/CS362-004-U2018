@@ -106,11 +106,11 @@ int main()
         //printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
         if (!(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded))
         {
-            printf("hand count failed\n");
+            printf("hand count failed - test 1\n");
         }
         if (!(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards))
         {
-            printf("deck count failed\n");
+            printf("deck count failed - test 1\n");
         }
         
         //memset(&G, 23, sizeof(struct gameState)); // clear the game state
@@ -133,11 +133,11 @@ int main()
         //printf("deck count = %d, expected = %d\n", testG.deckCount[thisPlayer], G.deckCount[thisPlayer] - newCards + shuffledCards);
         if (!(testG.handCount[thisPlayer] == G.handCount[thisPlayer] + newCards - discarded))
         {
-            printf("hand count failed\n");
+            printf("hand count failed - test 2\n");
         }
         if (!(testG.deckCount[thisPlayer] == G.deckCount[thisPlayer] - newCards + shuffledCards))
         {
-            printf("deck count failed\n");
+            printf("deck count failed - test 2\n");
         }
         //memset(&G, 23, sizeof(struct gameState)); // clear the game state
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
