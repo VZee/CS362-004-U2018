@@ -120,7 +120,7 @@ int main()
     printf("Test the kingdom cards\n");
     j = 0;
     for(j = 0; j < 10; j++){
-        assert(testG.supplyCount[k[j]] == G.supplyCount[k[j]]);
+        if(testG.supplyCount[k[j]] != G.supplyCount[k[j]]) printf("Supply count for card %d failed\n", j);
     }
 
     // test the victory cards - since we have two players, there should be 8 of each victory card
@@ -143,7 +143,7 @@ int main()
 	cardEffect(village, choice1, choice2, choice3, &testG, handpos, &bonus);
 
     printf("actions = %d, expected = %d\n", testG.numActions, G.numActions + increaseActions);
-	assert(testG.numActions == G.numActions + increaseActions);
+	if(testG.numActions != G.numActions + increaseActions) printf("Num actions failed\n");
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     printf("\n >>>>> SUCCESS: Testing complete %s <<<<<\n\n", TESTCARD);
