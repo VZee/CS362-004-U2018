@@ -11,19 +11,77 @@ import junit.framework.TestCase;
 public class UrlValidatorTest extends TestCase {
 
 
-   public UrlValidatorTest(String testName) {
-      super(testName);
-   }
+    public UrlValidatorTest(String testName) {
+        super(testName);
+    }
 
    
    ////////////////////////////////////////////////////////////////////////////////////////////////
    // Manual Testing
-   public void testManualTest()
-   {
-//You can use this function to implement your manual testing	 
-	   
-	   
-   }
+   public void testManualTest() {
+
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+    
+        // Expected: valid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:65535"));
+    
+        // Expected: valid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:6553"));
+    
+        // Expected: valid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:655"));
+    
+        // Expected: valid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:65"));
+    
+        // Expected: valid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:6"));
+        
+        // Expected: invalid     Result: invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com:"));
+        
+        //Expected: Valid 	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com"));
+            
+        //Expected: Invalid	Result: Invalid
+        System.out.println(urlVal.isValid("http://https://www.amazon.com"));
+            
+        //Expected: Invalid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.ama/zon.com"));
+        
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://amazon.org"));
+        
+        //Expected: Invalid	Result: valid
+        System.out.println(urlVal.isValid("http://www.a?mazon.com"));
+           
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com"));
+            
+        //Expected: Invalid	Result: Valid
+        System.out.println(urlVal.isValid("http://2.2.2.255"));
+        
+        //Expected: Invalid	Result: Valid
+        System.out.println(urlVal.isValid("http://2.2.2.256"));
+        
+        //Expected: Invalid	Result: Valid
+        System.out.println(urlVal.isValid("http://2.2.2.895"));
+         
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com"));
+        
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com?x=1"));
+        
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com?x"));
+        
+        //Expected: Invalid	Result: Invalid
+        System.out.println(urlVal.isValid("http://www.amazon.com?x\n"));
+        
+        //Expected: Valid	Result: Valid
+        System.out.println(urlVal.isValid("http://www.amazon.com?x\0"));
+    }      
    ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -65,6 +123,8 @@ public class UrlValidatorTest extends TestCase {
    // Now test false schemes
    public void testFalseScheme(){
        // Partition to test each scheme with the same rest of the URL
+       // Different schemes can be chosen by commenting out all other ones
+       // Default is for top assert to be the one to be registered via Eclipse debugger
         String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("3ht://255.com"));
@@ -77,6 +137,8 @@ public class UrlValidatorTest extends TestCase {
    public void testYourSecondPartition(){
         //You can use this function to implement your Second Partition testing	  
         // All invalid (except for query)
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http:256.256.256.256:-1/../"));
@@ -87,6 +149,8 @@ public class UrlValidatorTest extends TestCase {
     
    public void testYourThirdPartition(){
         // Only scheme (and query) valid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("h3t://1.2.3.4.:65636/test1//file?action=edit&mode=up"));
@@ -97,6 +161,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourFourthPartition(){
         // Only scheme invalid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http:/go.com:0/test1/?action=view"));
@@ -108,6 +174,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourFifthPartition(){
         // Only authority (and query) valid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http:go.au:65a/..//file/#"));
@@ -118,6 +186,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourSixthPartition(){
         // Only authority invalid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("go.1aa/t123?action=view"));
@@ -128,6 +198,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourSeventhPartition(){
         // Only port (and query) valid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("://256.256.256.256:80/../"));
@@ -138,6 +210,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourEigthPartition(){
         // Only port invalid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http://www.google.com:-1/test1?action=view"));
@@ -148,6 +222,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourNinthPartition(){
         // Only path (and query) valid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("://256.256.256.256:-1/$23"));
@@ -158,6 +234,8 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourTenthPartition(){
         // Only path invalid
+        // Different schemes can be chosen by commenting out all other ones
+        // Default is for top assert to be the one to be registered via Eclipse debugger
 	    String[] scheme = {"http", "https", "ftp", "", "h3t"};
         UrlValidator urlVal = new UrlValidator(scheme);
         assertFalse(urlVal.isValid("http://www.google.com:80/#?action=view"));
