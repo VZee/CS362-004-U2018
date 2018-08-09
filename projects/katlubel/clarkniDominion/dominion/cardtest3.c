@@ -34,7 +34,7 @@ int main()
     int numPlayers = 2;
     int thisPlayer = 0;
     int otherPlayer = 1;
-    int increaseActions = 1;
+    int increaseActions = 2;
     struct gameState G, testG;
     int k[10] = {adventurer, embargo, village, minion, cutpurse,
                  sea_hag, tribute, smithy, council_room, great_hall};

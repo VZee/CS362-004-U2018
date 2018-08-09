@@ -143,7 +143,7 @@ int main()
 	choice1 = 1;
 	cardEffect(great_hall, choice1, choice2, choice3, &testG, handpos, &bonus);
 
-    printf("actions = %d, expected = %d\n", testG.numActions, G.numActions + increaseActions);
+    printf("actions = %d, expected = %d\n", testG.numActions, G.numActions + 1);
 	if(!(testG.numActions == G.numActions + 1)){printf("num actions failed\n");}
     memset(&G, 23, sizeof(struct gameState));   // clear the game state
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

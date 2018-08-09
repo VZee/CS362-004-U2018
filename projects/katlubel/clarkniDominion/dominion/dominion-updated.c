@@ -656,6 +656,13 @@ int getCost(int cardNumber)
 
 */
 int cardEffectSmithy(int currentPlayer, struct gameState *state, int handPos)
+/*The buggy function was:
+{  //+3 Cards
+	for (int i = 0; i <=3; i++) {
+			drawCard(currentPlayer, state);
+	}
+  */
+ // below is the fixed function
 {  //+3 Cards
 	for (int i = 0; i < 3; i++) {
 			drawCard(currentPlayer, state);
@@ -685,7 +692,8 @@ int cardEffectAdventurer(int currentPlayer, struct gameState *state, int temphan
 			cardDrawn =
 					state->hand[currentPlayer][state->handCount[currentPlayer]
 							- 1]; //top card of hand is most recently drawn card.
-			if (cardDrawn == (copper && cardDrawn == silver) || cardDrawn == gold)
+			// Original if statement: if (cardDrawn == (copper && cardDrawn == silver) || cardDrawn == gold)
+      if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
 				drawntreasure++;
 			else {
 				temphand[z] = cardDrawn;
